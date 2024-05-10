@@ -1,0 +1,25 @@
+constexpr表达式是指值不会改变并且在编译过程就能得到计算结果的表达式
+
+
+static_cast
+static_cast的转换格式：static_cast <type-id> (expression)
+将expression转换为type-id类型，主要用于非多态类型之间的转换，不提供运行时的检查来确保转换的安全性。
+
+
+dynamic_cast
+dynamic_cast的转换格式：dynamic_cast <type-id> (expression)
+将expression转换为type-id类型，type-id必须是类的指针、类的引用或者是void *；如果type-id是指针类型，那么expression也必须是一个指针；如果type-id是一个引用，那么expression也必须是一个引用。
+dynamic_cast主要用于类层次间的上行转换和下行转换，还可以用于类之间的交叉转换。在类层次间进行上行转换时，dynamic_cast和static_cast的效果是一样的；
+在进行下行转换时，dynamic_cast具有类型检查的功能，比static_cast更安全。在多态类型之间的转换主要使用dynamic_cast，因为类型提供了运行时信息。
+
+
+const_cast
+const_cast的转换格式：const_cast <type-id> (expression)
+const_cast用来将类型的const、volatile和__unaligned属性移除。常量指针被转换成非常量指针，并且仍然指向原来的对象；常量引用被转换成非常量引用，并且仍然引用原来的对象
+
+
+reinterpret_cast
+reinterpret_cast的转换格式：reinterpret_cast <type-id> (expression)
+允许将任何指针类型转换为其它的指针类型；听起来很强大，但是也很不靠谱。
+它主要用于将一种数据类型从一种类型转换为另一种类型。它可以将一个指针转换成一个整数，也可以将一个整数转换成一个指针，在实际开发中，先把一个指针转换成一个整数，在把该整数转换成原类型的指针，还可以得到原来的指针值；
+特别是开辟了系统全局的内存空间，需要在多个应用程序之间使用时，需要彼此共享，传递这个内存空间的指针时，就可以将指针转换成整数值，得到以后，再将整数值转换成指针，进行对应的操作。
